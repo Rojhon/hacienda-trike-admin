@@ -169,32 +169,60 @@ function Sidenav({ color }) {
       <hr />
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/dashboard">
+          <NavLink to="/home">
             <span
               className="icon"
               style={{
-                background: page === "dashboard" ? color : "",
+                background: page === "home" ? color : "",
               }}
             >
               {dashboard}
             </span>
-            <span className="label">Dashboard</span>
+            <span className="label">Home</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
-          <NavLink to="/tables">
+          <NavLink to="/accounts">
             <span
               className="icon"
               style={{
-                background: page === "tables" ? color : "",
+                background: page === "accounts" ? color : "",
+              }}
+            >
+              {dashboard}
+            </span>
+            <span className="label">Accounts</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="3">
+          <NavLink to="/active-rides">
+            <span
+              className="icon"
+              style={{
+                background: page === "active-rides" ? color : "",
+              }}
+            >
+              {dashboard}
+            </span>
+            <span className="label">Active Rides</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="4">
+          <NavLink to="/rides">
+            <span
+              className="icon"
+              style={{
+                background: page === "rides" ? color : "",
               }}
             >
               {tables}
             </span>
-            <span className="label">Tables</span>
+            <span className="label">Rides</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="3">
+
+
+        {/* <Menu.Item key="3">
           <NavLink to="/billing">
             <span
               className="icon"
@@ -206,20 +234,7 @@ function Sidenav({ color }) {
             </span>
             <span className="label">Billing</span>
           </NavLink>
-        </Menu.Item>
-        <Menu.Item key="4">
-          <NavLink to="/rtl">
-            <span
-              className="icon"
-              style={{
-                background: page === "rtl" ? color : "",
-              }}
-            >
-              {rtl}
-            </span>
-            <span className="label">RTL</span>
-          </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item>
@@ -260,7 +275,7 @@ function Sidenav({ color }) {
             {dashboard}
           </span>
           <h6>Need Help?</h6>
-          <p>Please check our docs</p>
+          <p>Redirect sa app</p>
           <Button type="primary" className="ant-btn-sm ant-btn-block">
             DOCUMENTATION
           </Button>

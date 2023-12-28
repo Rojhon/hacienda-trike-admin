@@ -10,10 +10,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 import { Switch, Route, Redirect } from "react-router-dom";
-import Home from "./pages/Home";
-import Tables from "./pages/Tables";
+import Home from "./pages/Home/index";
+import Account from "./pages/Account";
+import ActiveRides from "./pages/ActiveRides";
+import Rides from "./pages/Rides";
+
 import Billing from "./pages/Billing";
-import Rtl from "./pages/Rtl";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -29,12 +31,13 @@ function App() {
         <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-in" exact component={SignIn} />
         <Main>
-          <Route exact path="/dashboard" component={Home} />
-          <Route exact path="/tables" component={Tables} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/accounts" component={Account} />
+          <Route exact path="/active-rides" component={ActiveRides} />
+          <Route exact path="/rides" component={Rides} />
           <Route exact path="/billing" component={Billing} />
-          <Route exact path="/rtl" component={Rtl} />
           <Route exact path="/profile" component={Profile} />
-          <Redirect from="*" to="/dashboard" />
+          <Redirect from="*" to="/home" />
         </Main>
       </Switch>
     </div>
