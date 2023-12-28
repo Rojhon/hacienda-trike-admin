@@ -82,14 +82,25 @@ export const updateLocation = async (values) => {
 
 }
 
-
 export const getAccounts = async () => {
     try {
         const passengersRef = ref(db, 'passengers');
         const passengersSnapshot = await get(passengersRef);
 
-        const driversRef = ref(db, 'passengers');
+        const driversRef = ref(db, 'drivers');
         const driversSnapshot = await get(driversRef);
+
+        // Combine passengers and drivers, then sort based on created_at
+        const combinedAccounts = [
+            ...Object.values(passengersSnapshot.val() || []).map(passenger => ({
+                ...passenger,
+                type: 'passenger',
+            })),
+            ...Object.values(driversSnapshot.val() || []).map(driver => ({
+                ...driver,
+                type: 'driver',
+            })),
+        ].sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
 
         const ridesRef = ref(db, 'rides');
         const ridesSnapshot = await get(ridesRef);
@@ -99,23 +110,24 @@ export const getAccounts = async () => {
 
         return {
             data: {
-                passengers: passengersSnapshot.val() ? Object.values(passengersSnapshot.val()) : [],
-                drivers: driversSnapshot.val() ? Object.values(driversSnapshot.val()) : [],
+                total_passengers: passengersSnapshot.val() ? Object.values(passengersSnapshot.val())?.length : 0,
+                total_drivers: driversSnapshot.val() ? Object.values(driversSnapshot.val())?.length : 0,
                 total_rides: ridesSnapshot.val() ? Object.values(ridesSnapshot.val())?.length : 0,
-                total_active_rides: activeRidesSnapshot.val() ? Object.values(activeRidesSnapshot.val())?.length : 0
+                total_active_rides: activeRidesSnapshot.val() ? Object.values(activeRidesSnapshot.val())?.length : 0,
+                latest_accounts: combinedAccounts,
             },
-            status: 200
-        }
-
+            status: 200,
+        };
     } catch (error) {
         return {
             data: {
-                passengers: [],
-                drivers: [],
+                total_passengers: 0,
+                total_drivers: 0,
                 total_rides: 0,
-                total_active_rides: 0
+                total_active_rides: 0,
+                latest_accounts: [],
             },
-            status: 200
-        }
+            status: 200,
+        };
     }
-}
+};

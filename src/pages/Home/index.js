@@ -87,10 +87,13 @@ const Home = () => {
         </svg>,
     ];
 
-    const [passengers, setPassengers] = useState([])
-    const [drivers, setDrivers] = useState([])
-    const [totalRides, setTotalRides] = useState(0)
-    const [totalActiveRides, setTotalActiveRides] = useState(0)
+    const [totalPassengers, setTotalPassengers] = useState(null)
+    const [totalDrivers, setTotalDrivers] = useState(null)
+    const [totalRides, setTotalRides] = useState(null)
+    const [totalActiveRides, setTotalActiveRides] = useState(null)
+    const [latestAccounts, setLatestAccounts] = useState([])
+
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         console.log("Home")
@@ -103,10 +106,15 @@ const Home = () => {
             const response = await getAccounts()
 
             if (response?.status == 200) {
-                setPassengers(response?.data?.passengers)
-                setDrivers(response?.data?.drivers)
+                setTotalPassengers(response?.data?.total_passengers)
+                setTotalDrivers(response?.data?.total_drivers)
                 setTotalRides(response?.data?.total_rides)
                 setTotalActiveRides(response?.data?.total_active_rides)
+                setLatestAccounts(response?.data?.latest_accounts)
+
+                setIsLoading(false)
+
+                console.log(response?.data)
             }
 
         } catch (error) {
@@ -125,7 +133,7 @@ const Home = () => {
                                     <Col xs={18}>
                                         <span>Total Passenger</span>
                                         <Title level={3}>
-                                            {passengers.length}
+                                            {totalPassengers}
                                             { }
                                         </Title>
                                     </Col>
@@ -144,7 +152,7 @@ const Home = () => {
                                     <Col xs={18}>
                                         <span>Total Drivers</span>
                                         <Title level={3}>
-                                            {drivers.length}
+                                            {totalDrivers}
                                             { }
                                         </Title>
                                     </Col>
@@ -195,7 +203,7 @@ const Home = () => {
                     </Col>
                 </Row>
 
-                <LatestCreatedAccount></LatestCreatedAccount>
+                <LatestCreatedAccount data={latestAccounts} isLoading={isLoading}></LatestCreatedAccount>
             </div>
         </>
     );
