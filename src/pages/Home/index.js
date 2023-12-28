@@ -9,26 +9,15 @@
   =========================================================
   * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAccounts } from "../../api/AccountController";
 
 import {
     Card,
     Col,
     Row,
     Typography,
-    Tooltip,
-    Progress,
-    Upload,
-    message,
-    Button,
-    Timeline,
-    Radio,
 } from "antd";
-import {
-    ToTopOutlined,
-    MenuUnfoldOutlined,
-    RightOutlined,
-} from "@ant-design/icons";
 
 import LatestCreatedAccount from "./LatestCreatedAccount";
 
@@ -62,7 +51,7 @@ const Home = () => {
             ></path>
         </svg>,
     ];
-    
+
     const heart = [
         <svg
             width="22"
@@ -97,69 +86,113 @@ const Home = () => {
             ></path>
         </svg>,
     ];
-    const count = [
-        {
-            today: "Total Passenger",
-            title: "2",
-            persent: "+30%",
-            icon: profile,
-            bnb: "bnb2",
-        },
-        {
-            today: "Total Drivers",
-            title: "5",
-            persent: "+20%",
-            icon: profile,
-            bnb: "bnb2",
-        },
-        {
-            today: "Total Rides",
-            title: "8",
-            persent: "-20%",
-            icon: heart,
-            bnb: "redtext",
-        },
-        {
-            today: "Total Active Rides",
-            title: "1",
-            persent: "10%",
-            icon: cart,
-            bnb: "bnb2",
-        },
-    ];
+
+    const [passengers, setPassengers] = useState([])
+    const [drivers, setDrivers] = useState([])
+    const [totalRides, setTotalRides] = useState(0)
+    const [totalActiveRides, setTotalActiveRides] = useState(0)
+
+    useEffect(() => {
+        console.log("Home")
+        handleGetAccounts()
+
+    }, [])
+
+    const handleGetAccounts = async () => {
+        try {
+            const response = await getAccounts()
+
+            if (response?.status == 200) {
+                setPassengers(response?.data?.passengers)
+                setDrivers(response?.data?.drivers)
+                setTotalRides(response?.data?.total_rides)
+                setTotalActiveRides(response?.data?.total_active_rides)
+            }
+
+        } catch (error) {
+
+        }
+    }
 
     return (
         <>
             <div className="layout-content">
                 <Row className="rowgap-vbox" gutter={[24, 0]}>
-                    {count.map((c, index) => (
-                        <Col
-                            key={index}
-                            xs={24}
-                            sm={24}
-                            md={12}
-                            lg={6}
-                            xl={6}
-                            className="mb-24"
-                        >
-                            <Card bordered={false} className="criclebox ">
-                                <div className="number">
-                                    <Row align="middle" gutter={[24, 0]}>
-                                        <Col xs={18}>
-                                            <span>{c.today}</span>
-                                            <Title level={3}>
-                                                {c.title}
-                                                { }
-                                            </Title>
-                                        </Col>
-                                        <Col xs={6}>
-                                            <div className="icon-box">{c.icon}</div>
-                                        </Col>
-                                    </Row>
-                                </div>
-                            </Card>
-                        </Col>
-                    ))}
+                    <Col xs={24} sm={24} md={12} lg={6} xl={6} className="mb-24">
+                        <Card bordered={false} className="criclebox">
+                            <div className="number">
+                                <Row align="middle" gutter={[24, 0]}>
+                                    <Col xs={18}>
+                                        <span>Total Passenger</span>
+                                        <Title level={3}>
+                                            {passengers.length}
+                                            { }
+                                        </Title>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <div className="icon-box">{profile}</div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Card>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={12} lg={6} xl={6} className="mb-24">
+                        <Card bordered={false} className="criclebox">
+                            <div className="number">
+                                <Row align="middle" gutter={[24, 0]}>
+                                    <Col xs={18}>
+                                        <span>Total Drivers</span>
+                                        <Title level={3}>
+                                            {drivers.length}
+                                            { }
+                                        </Title>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <div className="icon-box">{profile}</div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Card>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={12} lg={6} xl={6} className="mb-24">
+                        <Card bordered={false} className="criclebox">
+                            <div className="number">
+                                <Row align="middle" gutter={[24, 0]}>
+                                    <Col xs={18}>
+                                        <span>Total Rides</span>
+                                        <Title level={3}>
+                                            {totalRides}
+                                            { }
+                                        </Title>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <div className="icon-box">{heart}</div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Card>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={12} lg={6} xl={6} className="mb-24">
+                        <Card bordered={false} className="criclebox redtext">
+                            <div className="number">
+                                <Row align="middle" gutter={[24, 0]}>
+                                    <Col xs={18}>
+                                        <span>Total Active Rides</span>
+                                        <Title level={3}>
+                                            {totalActiveRides}
+                                            { }
+                                        </Title>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <div className="icon-box">{cart}</div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Card>
+                    </Col>
                 </Row>
 
                 <LatestCreatedAccount></LatestCreatedAccount>
