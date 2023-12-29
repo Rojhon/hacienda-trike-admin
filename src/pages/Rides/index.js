@@ -10,31 +10,25 @@
   * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 import { useState, useEffect } from "react";
-import { getPassengersDrivers } from "../../api/AccountController";
-import Passenger from "./Passenger";
-import Driver from "./Driver";
+import { getRides } from "../../api/RidesController";
+import RidesTable from "./RidesTable";
 
-const Account = () => {
+const Rides = () => {
 
     const [isLoading, setIsLoading] = useState(true)
-    const [passengers, setPassengers] = useState([])
-    const [drivers, setDrivers] = useState([])
+    const [rides, setRides] = useState([])
 
     useEffect(() => {
-        console.log("Home")
-        handleGetAccounts()
-
+        handleRides()
     }, [])
 
-    const handleGetAccounts = async () => {
+    const handleRides = async () => {
         try {
-            const response = await getPassengersDrivers()
+            const response = await getRides()
 
             if (response?.status == 200) {
-                setPassengers(response?.data?.passengers)
-                setDrivers(response?.data?.drivers)
+                setRides(response?.data)
                 setIsLoading(false)
-
                 console.log(response?.data)
             }
 
@@ -46,11 +40,10 @@ const Account = () => {
     return (
         <>
             <div className="layout-content">
-                <Passenger data={passengers} isLoading={isLoading}></Passenger>
-                <Driver data={drivers} isLoading={isLoading}></Driver>
+                <RidesTable data={rides} isLoading={isLoading}></RidesTable>
             </div>
         </>
     );
 }
 
-export default Account;
+export default Rides;

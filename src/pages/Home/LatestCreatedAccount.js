@@ -18,55 +18,9 @@ import {
     Avatar,
     Typography,
 } from "antd";
-
-// Images
-import ava1 from "../../assets/images/logo-shopify.svg";
-import ava2 from "../../assets/images/logo-atlassian.svg";
-import ava3 from "../../assets/images/logo-slack.svg";
-import ava5 from "../../assets/images/logo-jira.svg";
-import ava6 from "../../assets/images/logo-invision.svg";
-import face from "../../assets/images/face-1.jpg";
-import face2 from "../../assets/images/face-2.jpg";
-import face3 from "../../assets/images/face-3.jpg";
-import face4 from "../../assets/images/face-4.jpg";
-import face5 from "../../assets/images/face-5.jpeg";
-import face6 from "../../assets/images/face-6.jpeg";
-import pencil from "../../assets/images/pencil.svg";
+import { convertDate, convertDate2 } from "../../utils";
 
 const { Title } = Typography;
-
-const convertDate = (dateString) => {
-    const date = new Date(dateString);
-
-    const options = {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-    };
-
-    // Format the date and time
-    const formattedDateTime = date.toLocaleDateString('en-US', options);
-
-    return formattedDateTime;
-};
-
-const convertDate2 = (timestamp) => {
-    const date = new Date(timestamp);
-
-    const options = {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-    };
-
-    // Format only the date
-    const formattedDate = date.toLocaleDateString('en-US', options);
-
-    return formattedDate;
-};
 
 // table code start
 const columns = [

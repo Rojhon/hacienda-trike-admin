@@ -127,7 +127,33 @@ export const getAccounts = async () => {
                 total_active_rides: 0,
                 latest_accounts: [],
             },
-            status: 200,
+            status: 500,
         };
     }
 };
+
+export const getPassengersDrivers = async () => {
+    try {
+        const passengersRef = ref(db, 'passengers');
+        const passengersSnapshot = await get(passengersRef);
+
+        const driversRef = ref(db, 'drivers');
+        const driversSnapshot = await get(driversRef);
+
+        return {
+            data: {
+                passengers: passengersSnapshot.val() ? Object.values(passengersSnapshot.val()) : [],
+                drivers: driversSnapshot.val() ? Object.values(driversSnapshot.val()) : [],
+            },
+            status: 200,
+        };
+    } catch (error) {
+        return {
+            data: {
+                total_passengers: [],
+                total_drivers: [],
+            },
+            status: 500,
+        };
+    }
+}

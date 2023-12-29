@@ -14,7 +14,6 @@ import {
     Col,
     Card,
     Table,
-    Button,
     Avatar,
     Typography,
 } from "antd";
@@ -25,73 +24,62 @@ const { Title } = Typography;
 // table code start
 const columns = [
     {
-        title: 'Account',
-        dataIndex: 'username',
-        key: 'username',
+        title: 'Passenger',
+        dataIndex: 'passenger_username',
+        key: 'passenger_username',
         render: (_, record) => (
             <>
-                <Avatar.Group>
-                    <Avatar
-                        className="shape-avatar"
-                        shape="square"
-                        size={40}
-                        src={record?.profile_uri}
-                    ></Avatar>
-                    <div className="avatar-info">
-                        <Title level={5}>{record?.full_name}</Title>
-                        <p>{record?.email}</p>
-                    </div>
-                </Avatar.Group>{" "}
+                <p>{record?.passenger_username}</p>
             </>
         ),
     },
     {
-        title: 'Username',
-        dataIndex: 'username',
-        key: 'username',
+        title: 'Driver',
+        dataIndex: 'driver_username',
+        key: 'driver_username',
         render: (_, record) => (
             <>
-                <p>{record?.username}</p>
+                <p>{record?.driver_username ? record?.driver_username : "None"}</p>
             </>
         ),
     },
     {
-        title: 'Contact',
-        dataIndex: 'contact',
-        key: 'contact',
+        title: 'Price',
+        dataIndex: 'price',
+        key: 'price',
         render: (_, record) => (
             <>
-                <p>{record?.contact ? record?.contact : "None"}</p>
+                <p>{record?.price ? record?.price : "None"}</p>
             </>
         ),
     },
     {
-        title: 'Gender',
-        dataIndex: 'gender',
-        key: 'gender',
+        title: 'Estimated Travel Time',
+        dataIndex: 'travel_time',
+        key: 'travel_time',
         render: (_, record) => (
             <>
-                <p>{record?.gender ? record?.gender : "None"}</p>
+                <p>{record?.travel_time ? record?.travel_time : "None"}</p>
             </>
         ),
     },
     {
-        title: 'Birthday',
-        dataIndex: 'birthday',
-        key: 'birthday',
+        title: 'Pick Up',
+        dataIndex: 'pick_up_address',
+        key: 'pick_up_address',
         render: (_, record) => (
             <>
-                <p>{record?.birthday ? convertDate2(new Date(record?.birthday)) : "None"}</p>
+                <p>{record?.pick_up_address ? record?.pick_up_address : "None"}</p>
             </>
         ),
     },
     {
-        title: 'Total Books',
-        dataIndex: 'rides',
-        key: 'rides',
+        title: 'Drop off',
+        dataIndex: 'drop_off_address',
+        key: 'drop_off_address',
         render: (_, record) => (
             <>
-                <p>{record?.rides?.length}</p>
+                <p>{record?.drop_off_address ? record?.drop_off_address : "None"}</p>
             </>
         ),
     },
@@ -105,19 +93,9 @@ const columns = [
             </>
         ),
     },
-    {
-        title: 'Updated At',
-        dataIndex: 'updated_at',
-        key: 'updated_at',
-        render: (_, record) => (
-            <>
-                <p>{record?.updated_at ? convertDate(new Date(record?.updated_at)) : "None"}</p>
-            </>
-        ),
-    },
 ];
 
-const Passenger = ({ data, isLoading }) => {
+const ActiveRidesTable = ({ data, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
 
     return (
@@ -128,7 +106,7 @@ const Passenger = ({ data, isLoading }) => {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Passenger"
+                            title="Active"
                             extra={
                                 <>
                                     {/* <Radio.Group onChange={onChange} defaultValue="a">
@@ -156,4 +134,4 @@ const Passenger = ({ data, isLoading }) => {
     );
 }
 
-export default Passenger;
+export default ActiveRidesTable;

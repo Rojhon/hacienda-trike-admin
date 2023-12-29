@@ -18,308 +18,107 @@ import {
     Avatar,
     Typography,
 } from "antd";
-
-// Images
-import ava1 from "../../assets/images/logo-shopify.svg";
-import ava2 from "../../assets/images/logo-atlassian.svg";
-import ava3 from "../../assets/images/logo-slack.svg";
-import ava5 from "../../assets/images/logo-jira.svg";
-import ava6 from "../../assets/images/logo-invision.svg";
-import face from "../../assets/images/face-1.jpg";
-import face2 from "../../assets/images/face-2.jpg";
-import face3 from "../../assets/images/face-3.jpg";
-import face4 from "../../assets/images/face-4.jpg";
-import face5 from "../../assets/images/face-5.jpeg";
-import face6 from "../../assets/images/face-6.jpeg";
-import pencil from "../../assets/images/pencil.svg";
+import { convertDate, convertDate2 } from "../../utils";
 
 const { Title } = Typography;
 
 // table code start
 const columns = [
     {
-        title: "AUTHOR",
-        dataIndex: "name",
-        key: "name",
-        width: "32%",
-    },
-    {
-        title: "FUNCTION",
-        dataIndex: "function",
-        key: "function",
-    },
-
-    {
-        title: "STATUS",
-        key: "status",
-        dataIndex: "status",
-    },
-    {
-        title: "EMPLOYED",
-        key: "employed",
-        dataIndex: "employed",
-    },
-];
-
-const data = [
-    {
-        key: "1",
-        name: (
+        title: 'Account',
+        dataIndex: 'username',
+        key: 'username',
+        render: (_, record) => (
             <>
                 <Avatar.Group>
                     <Avatar
                         className="shape-avatar"
                         shape="square"
                         size={40}
-                        src={face2}
+                        src={record?.profile_uri}
                     ></Avatar>
                     <div className="avatar-info">
-                        <Title level={5}>Michael John</Title>
-                        <p>michael@mail.com</p>
+                        <Title level={5}>{record?.full_name}</Title>
+                        <p>{record?.email}</p>
                     </div>
                 </Avatar.Group>{" "}
             </>
         ),
-        function: (
+    },
+    {
+        title: 'Username',
+        dataIndex: 'username',
+        key: 'username',
+        render: (_, record) => (
             <>
-                <div className="author-info">
-                    <Title level={5}>Manager</Title>
-                    <p>Organization</p>
-                </div>
-            </>
-        ),
-
-        status: (
-            <>
-                <Button type="primary" className="tag-primary">
-                    ONLINE
-                </Button>
-            </>
-        ),
-        employed: (
-            <>
-                <div className="ant-employed">
-                    <span>23/04/18</span>
-                    <a href="#pablo">Edit</a>
-                </div>
+                <p>{record?.username}</p>
             </>
         ),
     },
 
     {
-        key: "2",
-        name: (
+        title: 'Contact',
+        dataIndex: 'contact',
+        key: 'contact',
+        render: (_, record) => (
             <>
-                <Avatar.Group>
-                    <Avatar
-                        className="shape-avatar"
-                        shape="square"
-                        size={40}
-                        src={face3}
-                    ></Avatar>
-                    <div className="avatar-info">
-                        <Title level={5}>Alexa Liras</Title>
-                        <p>alexa@mail.com</p>
-                    </div>
-                </Avatar.Group>{" "}
-            </>
-        ),
-        function: (
-            <>
-                <div className="author-info">
-                    <Title level={5}>Programator</Title>
-                    <p>Developer</p>
-                </div>
-            </>
-        ),
-
-        status: (
-            <>
-                <Button className="tag-badge">ONLINE</Button>
-            </>
-        ),
-        employed: (
-            <>
-                <div className="ant-employed">
-                    <span>23/12/20</span>
-                    <a href="#pablo">Edit</a>
-                </div>
-            </>
-        ),
-    },
-
-    {
-        key: "3",
-        name: (
-            <>
-                <Avatar.Group>
-                    <Avatar
-                        className="shape-avatar"
-                        shape="square"
-                        size={40}
-                        src={face}
-                    ></Avatar>
-                    <div className="avatar-info">
-                        <Title level={5}>Laure Perrier</Title>
-                        <p>laure@mail.com</p>
-                    </div>
-                </Avatar.Group>{" "}
-            </>
-        ),
-        function: (
-            <>
-                <div className="author-info">
-                    <Title level={5}>Executive</Title>
-                    <p>Projects</p>
-                </div>
-            </>
-        ),
-
-        status: (
-            <>
-                <Button type="primary" className="tag-primary">
-                    ONLINE
-                </Button>
-            </>
-        ),
-        employed: (
-            <>
-                <div className="ant-employed">
-                    <span>03/04/21</span>
-                    <a href="#pablo">Edit</a>
-                </div>
+                <p>{record?.contact ? record?.contact : "None"}</p>
             </>
         ),
     },
     {
-        key: "4",
-        name: (
+        title: 'Gender',
+        dataIndex: 'gender',
+        key: 'gender',
+        render: (_, record) => (
             <>
-                <Avatar.Group>
-                    <Avatar
-                        className="shape-avatar"
-                        shape="square"
-                        size={40}
-                        src={face4}
-                    ></Avatar>
-                    <div className="avatar-info">
-                        <Title level={5}>Miriam Eric</Title>
-                        <p>miriam@mail.com</p>
-                    </div>
-                </Avatar.Group>{" "}
-            </>
-        ),
-        function: (
-            <>
-                <div className="author-info">
-                    <Title level={5}>Marketing</Title>
-                    <p>Organization</p>
-                </div>
-            </>
-        ),
-
-        status: (
-            <>
-                <Button type="primary" className="tag-primary">
-                    ONLINE
-                </Button>
-            </>
-        ),
-        employed: (
-            <>
-                <div className="ant-employed">
-                    <span>03/04/21</span>
-                    <a href="#pablo">Edit</a>
-                </div>
+                <p>{record?.gender ? record?.gender : "None"}</p>
             </>
         ),
     },
     {
-        key: "5",
-        name: (
+        title: 'Birthday',
+        dataIndex: 'birthday',
+        key: 'birthday',
+        render: (_, record) => (
             <>
-                <Avatar.Group>
-                    <Avatar
-                        className="shape-avatar"
-                        shape="square"
-                        size={40}
-                        src={face5}
-                    ></Avatar>
-                    <div className="avatar-info">
-                        <Title level={5}>Richard Gran</Title>
-                        <p>richard@mail.com</p>
-                    </div>
-                </Avatar.Group>{" "}
-            </>
-        ),
-        function: (
-            <>
-                <div className="author-info">
-                    <Title level={5}>Manager</Title>
-                    <p>Organization</p>
-                </div>
-            </>
-        ),
-
-        status: (
-            <>
-                <Button className="tag-badge">ONLINE</Button>
-            </>
-        ),
-        employed: (
-            <>
-                <div className="ant-employed">
-                    <span>23/03/20</span>
-                    <a href="#pablo">Edit</a>
-                </div>
+                <p>{record?.birthday ? convertDate2(new Date(record?.birthday)) : "None"}</p>
             </>
         ),
     },
-
     {
-        key: "6",
-        name: (
+        title: 'Total Rides',
+        dataIndex: 'rides',
+        key: 'rides',
+        render: (_, record) => (
             <>
-                <Avatar.Group>
-                    <Avatar
-                        className="shape-avatar"
-                        shape="square"
-                        size={40}
-                        src={face6}
-                    ></Avatar>
-                    <div className="avatar-info">
-                        <Title level={5}>John Levi</Title>
-                        <p>john@mail.com</p>
-                    </div>
-                </Avatar.Group>{" "}
+                <p>{record?.rides?.length}</p>
             </>
         ),
-        function: (
+    },
+    {
+        title: 'Created At',
+        dataIndex: 'created_at',
+        key: 'created_at',
+        render: (_, record) => (
             <>
-                <div className="author-info">
-                    <Title level={5}>Tester</Title>
-                    <p>Developer</p>
-                </div>
+                <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "None"}</p>
             </>
         ),
-
-        status: (
+    },
+    {
+        title: 'Updated At',
+        dataIndex: 'updated_at',
+        key: 'updated_at',
+        render: (_, record) => (
             <>
-                <Button className="tag-badge">ONLINE</Button>
-            </>
-        ),
-        employed: (
-            <>
-                <div className="ant-employed">
-                    <span>14/04/17</span>
-                    <a href="#pablo">Edit</a>
-                </div>
+                <p>{record?.updated_at ? convertDate(new Date(record?.updated_at)) : "None"}</p>
             </>
         ),
     },
 ];
 
-const Driver = () => {
+const Driver = ({ data, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
 
     return (
@@ -342,10 +141,11 @@ const Driver = () => {
                         >
                             <div className="table-responsive">
                                 <Table
+                                    loading={isLoading}
                                     columns={columns}
                                     dataSource={data}
-                                    pagination={false}
                                     className="ant-border-space"
+                                    rowKey="username"
                                 />
                             </div>
                         </Card>

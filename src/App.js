@@ -12,8 +12,8 @@
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./pages/Home/index";
 import Account from "./pages/Account";
-import ActiveRides from "./pages/ActiveRides";
-import Rides from "./pages/Rides";
+import ActiveRides from "./pages/ActiveRides/index";
+import Rides from "./pages/Rides/index";
 
 import Billing from "./pages/Billing";
 import Profile from "./pages/Profile";
