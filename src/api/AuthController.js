@@ -1,26 +1,17 @@
 import { set, ref, get, child, serverTimestamp } from "firebase/database"
-import { db } from "../components/Config";
+import { db } from "./FirebaseConfig";
 
 export const signIn = async (values) => {
     try {
         const dbRef = ref(db);
 
         // Check if username exists
-        const passengersRef = child(dbRef, `passengers/${values.username}`);
-        const passengersSnapshot = await get(passengersRef);
-        if (passengersSnapshot.exists()) {
-            if (passengersSnapshot.val().password == values.password) {
-                printJSON(passengersSnapshot.val())
-
-                // Get Active Books
-                const activeBooksRef = child(dbRef, `active_books/${passengersSnapshot.val()?.username}`);
-                const activeBooksSnapshot = await get(activeBooksRef);
-
+        const adminsRef = child(dbRef, `admins/${values.username}`);
+        const adminsSnapshot = await get(adminsRef);
+        if (adminsSnapshot.exists()) {
+            if (adminsSnapshot.val().password == values.password) {
                 return {
-                    data: {
-                        account: passengersSnapshot.val(),
-                        active_books: activeBooksSnapshot.val()
-                    },
+                    data: adminsSnapshot.val(),
                     status: 200
                 }
 
@@ -53,7 +44,7 @@ export const signUp = async (values) => {
         const dbRef = ref(db);
 
         // Check if username exists
-        const usernameRef = child(dbRef, `passengers/${values.username}`);
+        const usernameRef = child(dbRef, `admins/${values.username}`);
         const usernameSnapshot = await get(usernameRef);
 
         if (usernameSnapshot.exists()) {
@@ -64,9 +55,9 @@ export const signUp = async (values) => {
         }
 
         // Check if email exists - Recode this
-        const passengersRef = ref(db, 'passengers');
-        const passengersSnapshot = await get(passengersRef);
-        const data = Object.values(passengersSnapshot.val() || {})
+        const adminsRef = ref(db, 'admins');
+        const adminsSnapshot = await get(adminsRef);
+        const data = Object.values(adminsSnapshot.val() || {})
 
         var emailFound = false;
 
@@ -84,8 +75,8 @@ export const signUp = async (values) => {
             }
         }
 
-        // Create New Passenger
-        await set(ref(db, 'passengers/' + values.username), {
+        // Create New Admin
+        await set(ref(db, 'admins/' + values.username), {
             username: values.username,
             email: values.email,
             full_name: values.full_name,

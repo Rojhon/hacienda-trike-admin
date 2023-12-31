@@ -34,7 +34,7 @@ import {
   FacebookFilled,
 } from "@ant-design/icons";
 
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
 
@@ -258,6 +258,7 @@ function Header({
   handleSidenavType,
   handleFixedNavbar,
 }) {
+  const history = useHistory()
   const { Title, Text } = Typography;
 
   const [visible, setVisible] = useState(false);
@@ -267,6 +268,11 @@ function Header({
 
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
+
+  const handleLogOut = () => {
+    localStorage.clear()
+    history.push("/")
+  }
 
   return (
     <>
@@ -368,37 +374,11 @@ function Header({
                   </ButtonContainer>
                 </div>
 
-                <div className="sidebarnav-color mb-2">
-                  <Title level={5}>Sidenav Type</Title>
-                  <Text>Choose between 2 different sidenav types.</Text>
-                  <ButtonContainer className="trans">
-                    <Button
-                      type={sidenavType === "transparent" ? "primary" : "white"}
-                      onClick={() => {
-                        handleSidenavType("transparent");
-                        setSidenavType("transparent");
-                      }}
-                    >
-                      TRANSPARENT
-                    </Button>
-                    <Button
-                      type={sidenavType === "white" ? "primary" : "white"}
-                      onClick={() => {
-                        handleSidenavType("#fff");
-                        setSidenavType("white");
-                      }}
-                    >
-                      WHITE
-                    </Button>
-                  </ButtonContainer>
-                </div>
-        
                 <div className="ant-docment">
                   <ButtonContainer>
-                    <Button type="black" size="large">
-                      FREE DOWNLOAD
+                    <Button type="black" size="large" onClick={() => handleLogOut()}>
+                      LOG OUT
                     </Button>
-                    <Button type="black" size="large">VIEW DOCUMENTATION</Button>
                   </ButtonContainer>
                 </div>
               </div>

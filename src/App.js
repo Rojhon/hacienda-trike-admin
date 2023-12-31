@@ -9,7 +9,7 @@
 =========================================================
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home/index";
 import Account from "./pages/Account";
 import ActiveRides from "./pages/ActiveRides/index";
@@ -28,8 +28,8 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Route path="/" exact component={SignIn} />
         <Route path="/sign-up" exact component={SignUp} />
-        <Route path="/sign-in" exact component={SignIn} />
         <Main>
           <Route exact path="/home" component={Home} />
           <Route exact path="/accounts" component={Account} />
@@ -37,7 +37,6 @@ function App() {
           <Route exact path="/rides" component={Rides} />
           <Route exact path="/billing" component={Billing} />
           <Route exact path="/profile" component={Profile} />
-          <Redirect from="*" to="/home" />
         </Main>
       </Switch>
     </div>
