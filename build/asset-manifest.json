@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8aea3ab8.chunk.css",
+    "main.js": "/static/js/main.488c9e6f.chunk.js",
+    "main.js.map": "/static/js/main.488c9e6f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.65980b1a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.65980b1a.js.map",
+    "static/css/2.b4d0dacd.chunk.css": "/static/css/2.b4d0dacd.chunk.css",
+    "static/js/2.66ed809c.chunk.js": "/static/js/2.66ed809c.chunk.js",
+    "static/js/2.66ed809c.chunk.js.map": "/static/js/2.66ed809c.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.b4d0dacd.chunk.css.map": "/static/css/2.b4d0dacd.chunk.css.map",
+    "static/css/main.8aea3ab8.chunk.css.map": "/static/css/main.8aea3ab8.chunk.css.map",
+    "static/js/2.66ed809c.chunk.js.LICENSE.txt": "/static/js/2.66ed809c.chunk.js.LICENSE.txt",
+    "static/js/main.488c9e6f.chunk.js.LICENSE.txt": "/static/js/main.488c9e6f.chunk.js.LICENSE.txt",
+    "static/media/bg-profile.9c36abe7.jpg": "/static/media/bg-profile.9c36abe7.jpg",
+    "static/media/main.css": "/static/media/info-card-3.e73b3934.jpg",
+    "static/media/face-1.d85d07a1.jpg": "/static/media/face-1.d85d07a1.jpg",
+    "static/media/face-2.efe2e35c.jpg": "/static/media/face-2.efe2e35c.jpg",
+    "static/media/face-3.e08fd425.jpg": "/static/media/face-3.e08fd425.jpg",
+    "static/media/face-4.03453a44.jpg": "/static/media/face-4.03453a44.jpg",
+    "static/media/face-5.e725aef8.jpeg": "/static/media/face-5.e725aef8.jpeg",
+    "static/media/face-6.b75146da.jpeg": "/static/media/face-6.b75146da.jpeg",
+    "static/media/home-decor-1.05e218fd.jpeg": "/static/media/home-decor-1.05e218fd.jpeg",
+    "static/media/home-decor-2.b4e5397c.jpeg": "/static/media/home-decor-2.b4e5397c.jpeg",
+    "static/media/home-decor-3.74d13fcb.jpeg": "/static/media/home-decor-3.74d13fcb.jpeg",
+    "static/media/mastercard-logo.e1b9bed1.png": "/static/media/mastercard-logo.e1b9bed1.png",
+    "static/media/paypal-logo-2.e414836f.png": "/static/media/paypal-logo-2.e414836f.png",
+    "static/media/team-2.e725aef8.jpg": "/static/media/team-2.e725aef8.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.65980b1a.js",
+    "static/css/2.b4d0dacd.chunk.css",
+    "static/js/2.66ed809c.chunk.js",
+    "static/css/main.8aea3ab8.chunk.css",
+    "static/js/main.488c9e6f.chunk.js"
+  ]
+}

@@ -129,7 +129,7 @@ const Main = ({ children }) => {
               </AntHeader>
             )}
             <Content className="content-ant">{children}</Content>
-            <Footer />
+            {/* <Footer /> */}
           </Layout>
         </Layout>
           : ""

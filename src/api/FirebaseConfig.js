@@ -8,7 +8,15 @@ import 'firebase/compat/storage'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG);
+const firebaseConfig = {
+  apiKey: "AIzaSyBLRm_QpfbKx-Ctz0dBsIiDYDZRMEsuiek",
+  authDomain: "hacienda-trike-25c8c.firebaseapp.com",
+  databaseURL: "https://hacienda-trike-25c8c-default-rtdb.firebaseio.com",
+  projectId: "hacienda-trike-25c8c",
+  storageBucket: "hacienda-trike-25c8c.appspot.com",
+  messagingSenderId: "1082712398750",
+  appId: "1:1082712398750:web:9aa117890ddacc4682548f"
+};
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
