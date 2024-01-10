@@ -14,9 +14,10 @@ import Home from "./pages/Home/index";
 import Account from "./pages/Account";
 import ActiveRides from "./pages/ActiveRides/index";
 import Rides from "./pages/Rides/index";
+import Profile from "./pages/Profile";
+import Help from "./pages/Help";
 
 import Billing from "./pages/Billing";
-import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Main from "./components/layout/Main";
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/rides" component={Rides} />
           <Route exact path="/billing" component={Billing} />
           <Route exact path="/profile" component={Profile} />
+          {/* <Route exact path="/help" component={Help} /> */}
         </Main>
       </Switch>
     </div>

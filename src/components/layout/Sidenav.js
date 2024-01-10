@@ -42,6 +42,34 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
+  const profile2 = [
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        d="M9 6C9 7.65685 7.65685 9 6 9C4.34315 9 3 7.65685 3 6C3 4.34315 4.34315 3 6 3C7.65685 3 9 4.34315 9 6Z"
+        fill={color}
+      ></path>
+      <path
+        d="M17 6C17 7.65685 15.6569 9 14 9C12.3431 9 11 7.65685 11 6C11 4.34315 12.3431 3 14 3C15.6569 3 17 4.34315 17 6Z"
+        fill={color}
+      ></path>
+      <path
+        d="M12.9291 17C12.9758 16.6734 13 16.3395 13 16C13 14.3648 12.4393 12.8606 11.4998 11.6691C12.2352 11.2435 13.0892 11 14 11C16.7614 11 19 13.2386 19 16V17H12.9291Z"
+        fill={color}
+      ></path>
+      <path
+        d="M6 11C8.76142 11 11 13.2386 11 16V17H1V16C1 13.2386 3.23858 11 6 11Z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
+
   const tables = [
     <svg
       width="20"
@@ -163,7 +191,7 @@ function Sidenav({ color }) {
   return (
     <>
       <div className="brand">
-        <img src={logo} alt="" />
+        {/* <img src={logo} alt="" /> */}
         <span>HaciendaTrike</span>
       </div>
       <hr />
@@ -189,25 +217,12 @@ function Sidenav({ color }) {
                 background: page === "accounts" ? color : "",
               }}
             >
-              {dashboard}
+              {profile2}
             </span>
             <span className="label">Accounts</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="3">
-          <NavLink to="/active-rides">
-            <span
-              className="icon"
-              style={{
-                background: page === "active-rides" ? color : "",
-              }}
-            >
-              {dashboard}
-            </span>
-            <span className="label">Active Rides</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="4">
           <NavLink to="/rides">
             <span
               className="icon"
@@ -218,6 +233,19 @@ function Sidenav({ color }) {
               {tables}
             </span>
             <span className="label">Rides</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="4">
+          <NavLink to="/active-rides">
+            <span
+              className="icon"
+              style={{
+                background: page === "active-rides" ? color : "",
+              }}
+            >
+              {tables}
+            </span>
+            <span className="label">Active Rides</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="6">
@@ -233,6 +261,19 @@ function Sidenav({ color }) {
             <span className="label">Manage Admin</span>
           </NavLink>
         </Menu.Item>
+        {/* <Menu.Item key="7">
+          <NavLink to="/help">
+            <span
+              className="icon"
+              style={{
+                background: page === "help" ? color : "",
+              }}
+            >
+              {profile}
+            </span>
+            <span className="label">Manage Help</span>
+          </NavLink>
+        </Menu.Item> */}
       </Menu>
     </>
   );
