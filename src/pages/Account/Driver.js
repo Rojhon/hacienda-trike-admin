@@ -19,6 +19,7 @@ import {
     Typography,
 } from "antd";
 import { convertDate, convertDate2 } from "../../utils";
+import haciendaTrikeDriver from "../../assets/images/HaciendaTrikeDriver.png"
 
 const { Title } = Typography;
 
@@ -35,7 +36,11 @@ const columns = [
                         className="shape-avatar"
                         shape="square"
                         size={40}
-                        src={record?.profile_uri}
+                        src={
+                            record?.profile_uri ?
+                                record?.profile_uri
+                                : haciendaTrikeDriver
+                        }
                     ></Avatar>
                     <div className="avatar-info">
                         <Title level={5}>{record?.full_name}</Title>
