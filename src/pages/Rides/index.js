@@ -29,7 +29,6 @@ const Rides = () => {
             if (response?.status == 200) {
                 setRides(response?.data)
                 setIsLoading(false)
-                console.log(response?.data)
             } else {
                 setIsLoading(false)
             }

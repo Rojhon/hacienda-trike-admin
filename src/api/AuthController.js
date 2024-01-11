@@ -9,7 +9,7 @@ export const signIn = async (values) => {
         const adminsRef = child(dbRef, `admins/${values.username}`);
         const adminsSnapshot = await get(adminsRef);
         if (adminsSnapshot.exists()) {
-            if (adminsSnapshot.val().password == values.password) {
+            if (adminsSnapshot.val().password === values.password) {
                 return {
                     data: adminsSnapshot.val(),
                     status: 200

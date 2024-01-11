@@ -33,8 +33,8 @@ const RidesTable = ({ data, setData, isLoading }) => {
     const columns = [
         {
             title: 'Passenger',
-            dataIndex: 'passenger_username',
-            key: 'passenger_username',
+            dataIndex: 'passenger',
+            key: 'passenger',
             render: (_, record) => (
                 <>
                     <p>{record?.passenger}</p>
@@ -181,7 +181,7 @@ const RidesTable = ({ data, setData, isLoading }) => {
                                     columns={columns}
                                     dataSource={data}
                                     className="ant-border-space"
-                                    rowKey="_id"
+                                    rowKey="passenger"
                                 />
                             </div>
                         </Card>

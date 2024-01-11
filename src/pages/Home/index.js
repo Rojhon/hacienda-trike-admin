@@ -120,9 +120,7 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        console.log("Home")
         handleGetAccounts()
-
     }, [])
 
     const handleGetAccounts = async () => {
@@ -137,8 +135,6 @@ const Home = () => {
                 setLatestAccounts(response?.data?.latest_accounts)
 
                 setIsLoading(false)
-
-                console.log(response?.data)
             }
 
         } catch (error) {

@@ -1,9 +1,9 @@
-import { set, ref, get, update, child, serverTimestamp, remove } from "firebase/database"
+import { ref, get, update, serverTimestamp, remove } from "firebase/database"
 import { db } from "./FirebaseConfig";
 
 export const updateAccount = async (values) => {
     try {
-        if (values.old_password != "" && values.new_password != "") {
+        if (values.old_password !== "" && values.new_password !== "") {
             const passengersRef = ref(db, 'passengers/' + values.username);
             const passengersSnapshot = await get(passengersRef);
             const data = passengersSnapshot.val()

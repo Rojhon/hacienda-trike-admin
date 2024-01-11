@@ -15,7 +15,7 @@ import Account from "./pages/Account";
 import ActiveRides from "./pages/ActiveRides/index";
 import Rides from "./pages/Rides/index";
 import Profile from "./pages/Profile";
-import Help from "./pages/Help";
+// import Help from "./pages/Help";
 
 import Billing from "./pages/Billing";
 import SignUp from "./pages/SignUp";

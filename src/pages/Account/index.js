@@ -21,9 +21,7 @@ const Account = () => {
     const [drivers, setDrivers] = useState([])
 
     useEffect(() => {
-        console.log("Home")
         handleGetAccounts()
-
     }, [])
 
     const handleGetAccounts = async () => {
@@ -34,8 +32,6 @@ const Account = () => {
                 setPassengers(response?.data?.passengers)
                 setDrivers(response?.data?.drivers)
                 setIsLoading(false)
-
-                console.log(response?.data)
             }
 
         } catch (error) {
