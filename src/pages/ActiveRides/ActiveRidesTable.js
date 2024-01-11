@@ -106,7 +106,7 @@ const ActiveRidesTable = ({ data, isLoading }) => {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Active"
+                            title={`Active (${data?.length})`}
                             extra={
                                 <>
                                     {/* <Radio.Group onChange={onChange} defaultValue="a">

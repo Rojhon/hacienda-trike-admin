@@ -77,7 +77,7 @@ const columns = [
         key: 'contact',
         render: (_, record) => (
             <>
-                <p>{record?.contact ? record?.contact : "None"}</p>
+                <p>{record?.contact ? record?.contact : "N/A"}</p>
             </>
         ),
     },
@@ -87,7 +87,7 @@ const columns = [
         key: 'gender',
         render: (_, record) => (
             <>
-                <p>{record?.gender ? record?.gender : "None"}</p>
+                <p>{record?.gender ? record?.gender : "N/A"}</p>
             </>
         ),
     },
@@ -97,7 +97,7 @@ const columns = [
         key: 'birthday',
         render: (_, record) => (
             <>
-                <p>{record?.birthday ? convertDate2(new Date(record?.birthday)) : "None"}</p>
+                <p>{record?.birthday ? convertDate2(new Date(record?.birthday)) : "N/A"}</p>
             </>
         ),
     },
@@ -107,7 +107,7 @@ const columns = [
         key: 'created_at',
         render: (_, record) => (
             <>
-                <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "None"}</p>
+                <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "N/A"}</p>
             </>
         ),
     },
@@ -140,7 +140,7 @@ const LatestCreatedAccount = ({ data, isLoading }) => {
                                     columns={columns}
                                     dataSource={data}
                                     className="ant-border-space"
-                                    rowKey="username"
+                                    rowKey="created_at"
                                 />
                             </div>
                         </Card>

@@ -1,9 +1,9 @@
 import { set, ref, get, child, onValue, remove, push, serverTimestamp, update } from "firebase/database"
 import { db } from "./FirebaseConfig";
 
-// export const getRides = async (username) => {
+// export const getRides = async () => {
 //     try {
-//         const ridesRef = ref(db, `passengers/${username}/rides`);
+//         const ridesRef = ref(db, `rides`);
 //         const ridesSnapshot = await get(ridesRef);
 
 //         const rideIds = ridesSnapshot.val() || [];
@@ -97,8 +97,14 @@ export const getRides = async () => {
         const ridesRef = ref(db, 'rides');
         const ridesSnapshot = await get(ridesRef);
 
+        // Convert object to array of key-value pairs
+        const ridesArray = Object.entries(ridesSnapshot.val()).map(([_id, ride]) => ({
+            _id,
+            ...ride,
+        }));
+
         return {
-            data: ridesSnapshot.val() ? Object.values(ridesSnapshot.val()).reverse() : [],
+            data: ridesArray ? ridesArray.reverse() : [],
             status: 200,
         };
 
@@ -111,3 +117,28 @@ export const getRides = async () => {
     }
 }
 
+export const deleteRide = async (_id) => {
+    try {
+        const ridesRef = ref(db, `rides/${_id}`);
+        const ridesSnapshot = await get(ridesRef);
+        await remove(ridesRef);
+
+        const passengersRef = ref(db, `passengers/${ridesSnapshot.val()?.passenger}`);
+        const passengersSnapshot = await get(passengersRef);
+
+        if (passengersSnapshot.val()) {
+            const updatedPassengerRides = passengersSnapshot.val()?.rides.filter(rideId => rideId !== _id);
+            await update(passengersRef, { rides: updatedPassengerRides });
+        }
+
+        const driversRef = ref(db, `drivers/${ridesSnapshot.val()?.driver_username}`);
+        const driversSnapshot = await get(driversRef);
+
+        if (driversSnapshot.val()) {
+            const updatedDriverRides = driversSnapshot.val()?.rides.filter(rideId => rideId !== _id);
+            await update(driversRef, { rides: updatedDriverRides });
+        }
+    } catch (error) {
+        console.error("Error deleting ride:", error);
+    }
+};

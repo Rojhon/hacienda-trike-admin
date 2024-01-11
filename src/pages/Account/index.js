@@ -46,7 +46,7 @@ const Account = () => {
     return (
         <>
             <div className="layout-content">
-                <Passenger data={passengers} isLoading={isLoading}></Passenger>
+                <Passenger data={passengers} setData={setPassengers} isLoading={isLoading}></Passenger>
                 <Driver data={drivers} isLoading={isLoading}></Driver>
             </div>
         </>

@@ -30,6 +30,8 @@ const Rides = () => {
                 setRides(response?.data)
                 setIsLoading(false)
                 console.log(response?.data)
+            } else {
+                setIsLoading(false)
             }
 
         } catch (error) {
@@ -40,7 +42,7 @@ const Rides = () => {
     return (
         <>
             <div className="layout-content">
-                <RidesTable data={rides} isLoading={isLoading}></RidesTable>
+                <RidesTable data={rides} setData={setRides} isLoading={isLoading}></RidesTable>
             </div>
         </>
     );

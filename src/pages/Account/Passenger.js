@@ -17,113 +17,151 @@ import {
     Button,
     Avatar,
     Typography,
+    Space,
+    Popconfirm,
+    message
 } from "antd";
 import { convertDate, convertDate2 } from "../../utils";
 import profileUser from "../../assets/images/profile-user.png"
 
 const { Title } = Typography;
 
-// table code start
-const columns = [
-    {
-        title: 'Account',
-        dataIndex: 'username',
-        key: 'username',
-        render: (_, record) => (
-            <>
-                <Avatar.Group>
-                    <Avatar
-                        className="shape-avatar"
-                        shape="square"
-                        size={40}
-                        src={
-                            record?.profile_uri ?
-                                record?.profile_uri
-                                : profileUser
-                        }
-                    ></Avatar>
-                    <div className="avatar-info">
-                        <Title level={5}>{record?.full_name}</Title>
-                        <p>{record?.email}</p>
-                    </div>
-                </Avatar.Group>{" "}
-            </>
-        ),
-    },
-    {
-        title: 'Username',
-        dataIndex: 'username',
-        key: 'username',
-        render: (_, record) => (
-            <>
-                <p>{record?.username}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Contact',
-        dataIndex: 'contact',
-        key: 'contact',
-        render: (_, record) => (
-            <>
-                <p>{record?.contact ? record?.contact : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Gender',
-        dataIndex: 'gender',
-        key: 'gender',
-        render: (_, record) => (
-            <>
-                <p>{record?.gender ? record?.gender : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Birthday',
-        dataIndex: 'birthday',
-        key: 'birthday',
-        render: (_, record) => (
-            <>
-                <p>{record?.birthday ? convertDate2(new Date(record?.birthday)) : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Total Books',
-        dataIndex: 'rides',
-        key: 'rides',
-        render: (_, record) => (
-            <>
-                <p>{record?.rides?.length}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Created At',
-        dataIndex: 'created_at',
-        key: 'created_at',
-        render: (_, record) => (
-            <>
-                <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Updated At',
-        dataIndex: 'updated_at',
-        key: 'updated_at',
-        render: (_, record) => (
-            <>
-                <p>{record?.updated_at ? convertDate(new Date(record?.updated_at)) : "None"}</p>
-            </>
-        ),
-    },
-];
-
-const Passenger = ({ data, isLoading }) => {
+const Passenger = ({ data, setData, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
+
+    // table code start
+    const columns = [
+        {
+            title: 'Account',
+            dataIndex: 'username',
+            key: 'username',
+            render: (_, record) => (
+                <>
+                    <Avatar.Group>
+                        <Avatar
+                            className="shape-avatar"
+                            shape="square"
+                            size={40}
+                            src={
+                                record?.profile_uri ?
+                                    record?.profile_uri
+                                    : profileUser
+                            }
+                        ></Avatar>
+                        <div className="avatar-info">
+                            <Title level={5}>{record?.full_name}</Title>
+                            <p>{record?.email}</p>
+                        </div>
+                    </Avatar.Group>{" "}
+                </>
+            ),
+        },
+        {
+            title: 'Username',
+            dataIndex: 'username',
+            key: 'username',
+            render: (_, record) => (
+                <>
+                    <p>{record?.username}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Contact',
+            dataIndex: 'contact',
+            key: 'contact',
+            render: (_, record) => (
+                <>
+                    <p>{record?.contact ? record?.contact : "N/A"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Gender',
+            dataIndex: 'gender',
+            key: 'gender',
+            render: (_, record) => (
+                <>
+                    <p>{record?.gender ? record?.gender : "N/A"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Birthday',
+            dataIndex: 'birthday',
+            key: 'birthday',
+            render: (_, record) => (
+                <>
+                    <p>{record?.birthday ? convertDate2(new Date(record?.birthday)) : "N/A"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Total Books',
+            dataIndex: 'rides',
+            key: 'rides',
+            render: (_, record) => (
+                <>
+                    <p>{record?.rides?.length ? record?.rides?.length : "N/A"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Created At',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            render: (_, record) => (
+                <>
+                    <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "N/A"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Updated At',
+            dataIndex: 'updated_at',
+            key: 'updated_at',
+            render: (_, record) => (
+                <>
+                    <p>{record?.updated_at ? convertDate(new Date(record?.updated_at)) : "N/A"}</p>
+                </>
+            ),
+        },
+        // {
+        //     title: 'Actions',
+        //     dataIndex: 'actions',
+        //     key: 'actions',
+        //     render: (_, record) => (
+        //         <Space>
+        //             {/* Update Action */}
+        //             <Button type="primary" onClick={() => handleUpdate(record?.username)}>
+        //                 Update
+        //             </Button>
+
+        //             {/* Delete Action */}
+        //             <Popconfirm
+        //                 title="Are you sure to delete this record?"
+        //                 onConfirm={() => handleDelete(record?.username)}
+        //                 okText="Yes"
+        //                 cancelText="No"
+        //             >
+        //                 <Button type="danger">Delete</Button>
+        //             </Popconfirm>
+        //         </Space>
+        //     ),
+        // },
+    ];
+
+    const handleUpdate = (record) => {
+        // Implement your update logic here
+        message.success(`Updating record with id ${record}`);
+    };
+
+    const handleDelete = (record) => {
+        // Implement your delete logic here
+        const updatedDataSource = data.filter(item => item.username !== record);
+        setData(updatedDataSource);
+        message.success(`Successfully deleted!`);
+    };
 
     return (
         <>
@@ -133,7 +171,7 @@ const Passenger = ({ data, isLoading }) => {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Passenger"
+                            title={`Passenger (${data?.length})`}
                             extra={
                                 <>
                                     {/* <Radio.Group onChange={onChange} defaultValue="a">

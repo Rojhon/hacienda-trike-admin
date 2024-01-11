@@ -16,102 +16,146 @@ import {
     Table,
     Avatar,
     Typography,
+    Button,
+    Space,
+    Popconfirm,
+    message
 } from "antd";
-import { getActiveRides } from "../../api/RidesController";
+import { getActiveRides, deleteRide } from "../../api/RidesController";
 import { convertDate, convertDate2 } from "../../utils";
 
 const { Text, Title } = Typography;
 
-// table code start
-const columns = [
-    {
-        title: 'Passenger',
-        dataIndex: 'passenger_username',
-        key: 'passenger_username',
-        render: (_, record) => (
-            <>
-                <p>{record?.passenger}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Driver',
-        dataIndex: 'driver_username',
-        key: 'driver_username',
-        render: (_, record) => (
-            <>
-                <p>{record?.driver_username}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Status',
-        dataIndex: 'status',
-        key: 'status',
-        render: (_, record) => (
-            <>
-                <p style={{
-                    color:
-                        record?.status == 'Completed' ? "#1677ff"
-                            : record?.status == "Ongoing" ? "orange" : "red"
-                }}>{record?.status}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Price',
-        dataIndex: 'price',
-        key: 'price',
-        render: (_, record) => (
-            <>
-                <p>{record?.price ? record?.price : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Estimated Travel Time',
-        dataIndex: 'travel_time',
-        key: 'travel_time',
-        render: (_, record) => (
-            <>
-                <p>{record?.travel_time ? record?.travel_time : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Pick Up',
-        dataIndex: 'pick_up_address',
-        key: 'pick_up_address',
-        render: (_, record) => (
-            <>
-                <p>{record?.pick_up_address ? record?.pick_up_address : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Drop off',
-        dataIndex: 'drop_off_address',
-        key: 'drop_off_address',
-        render: (_, record) => (
-            <>
-                <p>{record?.drop_off_address ? record?.drop_off_address : "None"}</p>
-            </>
-        ),
-    },
-    {
-        title: 'Created At',
-        dataIndex: 'created_at',
-        key: 'created_at',
-        render: (_, record) => (
-            <>
-                <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "None"}</p>
-            </>
-        ),
-    },
-];
-
-const RidesTable = ({ data, isLoading }) => {
+const RidesTable = ({ data, setData, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
+
+    // table code start
+    const columns = [
+        {
+            title: 'Passenger',
+            dataIndex: 'passenger_username',
+            key: 'passenger_username',
+            render: (_, record) => (
+                <>
+                    <p>{record?.passenger}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Driver',
+            dataIndex: 'driver_username',
+            key: 'driver_username',
+            render: (_, record) => (
+                <>
+                    <p>{record?.driver_username}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            render: (_, record) => (
+                <>
+                    <p style={{
+                        color:
+                            record?.status == 'Completed' ? "#1677ff"
+                                : record?.status == "Ongoing" ? "orange" : "red"
+                    }}>{record?.status}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+            render: (_, record) => (
+                <>
+                    <p>{record?.price ? record?.price : "None"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Estimated Travel Time',
+            dataIndex: 'travel_time',
+            key: 'travel_time',
+            render: (_, record) => (
+                <>
+                    <p>{record?.travel_time ? record?.travel_time : "None"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Pick Up',
+            dataIndex: 'pick_up_address',
+            key: 'pick_up_address',
+            render: (_, record) => (
+                <>
+                    <p>{record?.pick_up_address ? record?.pick_up_address : "None"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Drop off',
+            dataIndex: 'drop_off_address',
+            key: 'drop_off_address',
+            render: (_, record) => (
+                <>
+                    <p>{record?.drop_off_address ? record?.drop_off_address : "None"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Created At',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            render: (_, record) => (
+                <>
+                    <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "None"}</p>
+                </>
+            ),
+        },
+        {
+            title: 'Actions',
+            dataIndex: 'actions',
+            key: 'actions',
+            render: (_, record) => (
+                <Space>
+                    {/* Update Action */}
+                    {/* <Button type="primary" onClick={() => handleUpdate(record?._id)}>
+                        Update
+                    </Button> */}
+
+                    {/* Delete Action */}
+                    <Popconfirm
+                        title="Are you sure to delete this record?"
+                        onConfirm={() => handleDelete(record._id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button type="danger">Delete</Button>
+                    </Popconfirm>
+                </Space>
+            ),
+        },
+    ];
+
+    const handleUpdate = (record) => {
+        // Implement your update logic here
+        message.success(`Updating record with id ${record}`);
+    };
+
+    const handleDelete = async (_id) => {
+        // Implement your delete logic here
+        message.loading("Deleting...", 0)
+        const updatedDataSource = data.filter(item => item._id !== _id);
+        setData(updatedDataSource);
+
+        const response = await deleteRide(_id)
+        message.destroy()
+        message.success(`Successfully deleted!`);
+    };
+
 
     return (
         <>
@@ -121,7 +165,7 @@ const RidesTable = ({ data, isLoading }) => {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title="Rides"
+                            title={`Rides (${data?.length})`}
                             extra={
                                 <>
                                     {/* <Radio.Group onChange={onChange} defaultValue="a">
@@ -137,7 +181,7 @@ const RidesTable = ({ data, isLoading }) => {
                                     columns={columns}
                                     dataSource={data}
                                     className="ant-border-space"
-                                    rowKey="username"
+                                    rowKey="_id"
                                 />
                             </div>
                         </Card>

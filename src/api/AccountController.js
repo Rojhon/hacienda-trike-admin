@@ -114,7 +114,7 @@ export const getAccounts = async () => {
                 total_drivers: driversSnapshot.val() ? Object.values(driversSnapshot.val())?.length : 0,
                 total_rides: ridesSnapshot.val() ? Object.values(ridesSnapshot.val())?.length : 0,
                 total_active_rides: activeRidesSnapshot.val() ? Object.values(activeRidesSnapshot.val())?.length : 0,
-                latest_accounts: combinedAccounts,
+                latest_accounts: combinedAccounts?.slice(0, 5),
             },
             status: 200,
         };
