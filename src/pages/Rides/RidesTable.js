@@ -47,7 +47,7 @@ const RidesTable = ({ data, setData, isLoading }) => {
             key: 'driver_username',
             render: (_, record) => (
                 <>
-                    <p>{record?.driver_username}</p>
+                    <p>{record?.driver_username ? record?.driver_username : "N/A"}</p>
                 </>
             ),
         },
@@ -71,7 +71,7 @@ const RidesTable = ({ data, setData, isLoading }) => {
             key: 'price',
             render: (_, record) => (
                 <>
-                    <p>{record?.price ? record?.price : "None"}</p>
+                    <p>{record?.price ? record?.price : "N/A"}</p>
                 </>
             ),
         },
@@ -81,7 +81,7 @@ const RidesTable = ({ data, setData, isLoading }) => {
             key: 'travel_time',
             render: (_, record) => (
                 <>
-                    <p>{record?.travel_time ? record?.travel_time : "None"}</p>
+                    <p>{record?.travel_time ? record?.travel_time : "N/A"}</p>
                 </>
             ),
         },
@@ -91,7 +91,7 @@ const RidesTable = ({ data, setData, isLoading }) => {
             key: 'pick_up_address',
             render: (_, record) => (
                 <>
-                    <p>{record?.pick_up_address ? record?.pick_up_address : "None"}</p>
+                    <p>{record?.pick_up_address ? record?.pick_up_address : "N/A"}</p>
                 </>
             ),
         },
@@ -101,7 +101,7 @@ const RidesTable = ({ data, setData, isLoading }) => {
             key: 'drop_off_address',
             render: (_, record) => (
                 <>
-                    <p>{record?.drop_off_address ? record?.drop_off_address : "None"}</p>
+                    <p>{record?.drop_off_address ? record?.drop_off_address : "N/A"}</p>
                 </>
             ),
         },
@@ -111,7 +111,7 @@ const RidesTable = ({ data, setData, isLoading }) => {
             key: 'created_at',
             render: (_, record) => (
                 <>
-                    <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "None"}</p>
+                    <p>{record?.created_at ? convertDate(new Date(record?.created_at)) : "N/A"}</p>
                 </>
             ),
         },
