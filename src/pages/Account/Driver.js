@@ -17,13 +17,17 @@ import {
     Button,
     Avatar,
     Typography,
+    Space,
+    Popconfirm,
+    message
 } from "antd";
 import { convertDate, convertDate2 } from "../../utils";
 import haciendaTrikeDriver from "../../assets/images/HaciendaTrikeDriver.png"
+import { deleteAccount } from "../../api/AccountController";
 
 const { Title } = Typography;
 
-const Driver = ({ data, isLoading }) => {
+const Driver = ({ data, setData, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
 
     // table code start
@@ -124,7 +128,46 @@ const Driver = ({ data, isLoading }) => {
                 </>
             ),
         },
+        {
+            title: 'Actions',
+            dataIndex: 'actions',
+            key: 'actions',
+            render: (_, record) => (
+                <Space>
+                    {/* Update Action */}
+                    {/* <Button type="primary" onClick={() => handleUpdate(record?.username)}>
+                        Update
+                    </Button> */}
+
+                    {/* Delete Action */}
+                    <Popconfirm
+                        title="Are you sure to delete this record?"
+                        onConfirm={() => handleDelete(record?.username)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button type="danger">Delete</Button>
+                    </Popconfirm>
+                </Space>
+            ),
+        },
     ];
+
+    const handleUpdate = (record) => {
+        // Implement your update logic here
+        message.success(`Updating record with id ${record}`);
+    };
+
+    const handleDelete = async (record) => {
+        // Implement your delete logic here
+        message.loading("Deleting...", 0)
+        const updatedDataSource = data.filter(item => item.username !== record);
+        setData(updatedDataSource);
+
+        const response = await deleteAccount("drivers", record)
+        message.destroy()
+        message.success(`Successfully deleted!`);
+    };
 
 
     return (

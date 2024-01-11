@@ -23,6 +23,7 @@ import {
 } from "antd";
 import { convertDate, convertDate2 } from "../../utils";
 import profileUser from "../../assets/images/profile-user.png"
+import { deleteAccount } from "../../api/AccountController";
 
 const { Title } = Typography;
 
@@ -126,29 +127,29 @@ const Passenger = ({ data, setData, isLoading }) => {
                 </>
             ),
         },
-        // {
-        //     title: 'Actions',
-        //     dataIndex: 'actions',
-        //     key: 'actions',
-        //     render: (_, record) => (
-        //         <Space>
-        //             {/* Update Action */}
-        //             <Button type="primary" onClick={() => handleUpdate(record?.username)}>
-        //                 Update
-        //             </Button>
+        {
+            title: 'Actions',
+            dataIndex: 'actions',
+            key: 'actions',
+            render: (_, record) => (
+                <Space>
+                    {/* Update Action */}
+                    {/* <Button type="primary" onClick={() => handleUpdate(record?.username)}>
+                        Update
+                    </Button> */}
 
-        //             {/* Delete Action */}
-        //             <Popconfirm
-        //                 title="Are you sure to delete this record?"
-        //                 onConfirm={() => handleDelete(record?.username)}
-        //                 okText="Yes"
-        //                 cancelText="No"
-        //             >
-        //                 <Button type="danger">Delete</Button>
-        //             </Popconfirm>
-        //         </Space>
-        //     ),
-        // },
+                    {/* Delete Action */}
+                    <Popconfirm
+                        title="Are you sure to delete this record?"
+                        onConfirm={() => handleDelete(record?.username)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button type="danger">Delete</Button>
+                    </Popconfirm>
+                </Space>
+            ),
+        },
     ];
 
     const handleUpdate = (record) => {
@@ -156,10 +157,14 @@ const Passenger = ({ data, setData, isLoading }) => {
         message.success(`Updating record with id ${record}`);
     };
 
-    const handleDelete = (record) => {
+    const handleDelete = async(record) => {
         // Implement your delete logic here
+        message.loading("Deleting...", 0)
         const updatedDataSource = data.filter(item => item.username !== record);
         setData(updatedDataSource);
+
+        const response = await deleteAccount("passengers", record)
+        message.destroy()
         message.success(`Successfully deleted!`);
     };
 

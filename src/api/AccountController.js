@@ -1,4 +1,4 @@
-import { set, ref, get, update, child, serverTimestamp } from "firebase/database"
+import { set, ref, get, update, child, serverTimestamp, remove } from "firebase/database"
 import { db } from "./FirebaseConfig";
 
 export const updateAccount = async (values) => {
@@ -155,5 +155,15 @@ export const getPassengersDrivers = async () => {
             },
             status: 500,
         };
+    }
+}
+
+export const deleteAccount = async (type, username) => {
+    try {
+        const accountsRef = ref(db, `${type}/${username}`);
+        await remove(accountsRef);
+
+    } catch (error) {
+        console.log(error)
     }
 }
