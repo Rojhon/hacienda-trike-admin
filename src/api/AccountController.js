@@ -105,7 +105,7 @@ export const getAccounts = async () => {
         const ridesRef = ref(db, 'rides');
         const ridesSnapshot = await get(ridesRef);
 
-        const activeRidesRef = ref(db, 'active_rides');
+        const activeRidesRef = ref(db, 'active_books');
         const activeRidesSnapshot = await get(activeRidesRef);
 
         return {
