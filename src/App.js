@@ -14,6 +14,7 @@ import Home from "./pages/Home/index";
 import Account from "./pages/Account";
 import ActiveRides from "./pages/ActiveRides/index";
 import Rides from "./pages/Rides/index";
+import ManageDriver from "./pages/ManageDriver";
 import Profile from "./pages/Profile";
 // import Help from "./pages/Help";
 
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/active-rides" component={ActiveRides} />
           <Route exact path="/rides" component={Rides} />
           <Route exact path="/billing" component={Billing} />
+          <Route exact path="/manage-driver" component={ManageDriver} />
           <Route exact path="/profile" component={Profile} />
           {/* <Route exact path="/help" component={Help} /> */}
         </Main>

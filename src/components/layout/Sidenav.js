@@ -248,6 +248,19 @@ function Sidenav({ color }) {
             <span className="label">Active Rides</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="5">
+          <NavLink to="/manage-driver">
+            <span
+              className="icon"
+              style={{
+                background: page === "manage-driver" ? color : "",
+              }}
+            >
+              {profile}
+            </span>
+            <span className="label">Manage Driver</span>
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="6">
           <NavLink to="/profile">
             <span

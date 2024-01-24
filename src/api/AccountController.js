@@ -158,6 +158,33 @@ export const getPassengersDrivers = async () => {
     }
 }
 
+export const getNotVerifiedDrivers = async () => {
+    try {
+        const driversRef = ref(db, 'drivers');
+        const driversSnapshot = await get(driversRef);
+        const driversData = Object.values(driversSnapshot.val() || {})
+
+        var data = []
+
+        for (var i = 0; i < driversData.length; i++) {
+            if (driversData[i].verified == false) {
+                data.push(driversData[i])
+            }
+        }
+
+        return {
+            data: data,
+            status: 200,
+        };
+
+    } catch (error) {
+        return {
+            data: [],
+            status: 500,
+        };
+    }
+}
+
 export const deleteAccount = async (type, username) => {
     try {
         const accountsRef = ref(db, `${type}/${username}`);
