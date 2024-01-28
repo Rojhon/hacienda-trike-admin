@@ -27,7 +27,7 @@ import { deleteAccount } from "../../api/AccountController";
 
 const { Title } = Typography;
 
-const DriverVerified = ({ data, setData, isLoading }) => {
+const RejectedDriver = ({ data, setData, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
 
     // table code start
@@ -118,29 +118,29 @@ const DriverVerified = ({ data, setData, isLoading }) => {
                 </>
             ),
         },
-        {
-            title: 'Actions',
-            dataIndex: 'actions',
-            key: 'actions',
-            render: (_, record) => (
-                <Space>
-                    {/* Update Action */}
-                    {/* <Button type="primary" onClick={() => handleUpdate(record?.username)}>
-                        Update
-                    </Button> */}
+        // {
+        //     title: 'Actions',
+        //     dataIndex: 'actions',
+        //     key: 'actions',
+        //     render: (_, record) => (
+        //         <Space>
+        //             {/* Update Action */}
+        //             {/* <Button type="primary" onClick={() => handleUpdate(record?.username)}>
+        //                 Update
+        //             </Button> */}
 
-                    {/* Delete Action */}
-                    <Popconfirm
-                        title="Are you sure to delete this record?"
-                        onConfirm={() => handleDelete(record?.username)}
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button type="danger">Delete</Button>
-                    </Popconfirm>
-                </Space>
-            ),
-        },
+        //             {/* Delete Action */}
+        //             <Popconfirm
+        //                 title="Are you sure to delete this record?"
+        //                 onConfirm={() => handleDelete(record?.username)}
+        //                 okText="Yes"
+        //                 cancelText="No"
+        //             >
+        //                 <Button type="danger">Delete</Button>
+        //             </Popconfirm>
+        //         </Space>
+        //     ),
+        // },
     ];
 
     const handleUpdate = (record) => {
@@ -168,7 +168,7 @@ const DriverVerified = ({ data, setData, isLoading }) => {
                         <Card
                             bordered={false}
                             className="criclebox tablespace mb-24"
-                            title={`Not Verified Driver (${data?.length})`}
+                            title={`Rejected (${data?.length})`}
                             extra={
                                 <>
                                     {/* <Radio.Group onChange={onChange} defaultValue="a">
@@ -196,4 +196,4 @@ const DriverVerified = ({ data, setData, isLoading }) => {
     );
 }
 
-export default DriverVerified;
+export default RejectedDriver;

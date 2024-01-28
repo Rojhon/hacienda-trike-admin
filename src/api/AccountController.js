@@ -64,6 +64,27 @@ export const updateAccount = async (values) => {
     }
 };
 
+export const updateDriverStatus = async (driverUsername, status) => {
+    try {
+        await update(ref(db, 'drivers/' + driverUsername), {
+            status: status,
+            updated_at: serverTimestamp(),
+        });
+
+        return {
+            data: "Success!",
+            status: 200
+        }
+
+    } catch (error) {
+
+        return {
+            data: "Server Error!",
+            status: 500
+        }
+    }
+}
+
 // For Pick up and Drop off
 export const updateLocation = async (values) => {
     try {
@@ -158,7 +179,7 @@ export const getPassengersDrivers = async () => {
     }
 }
 
-export const getNotVerifiedDrivers = async () => {
+export const getAccountDrivers = async (status) => {
     try {
         const driversRef = ref(db, 'drivers');
         const driversSnapshot = await get(driversRef);
@@ -167,7 +188,7 @@ export const getNotVerifiedDrivers = async () => {
         var data = []
 
         for (var i = 0; i < driversData.length; i++) {
-            if (driversData[i].verified == false) {
+            if (driversData[i].status == status) {
                 data.push(driversData[i])
             }
         }

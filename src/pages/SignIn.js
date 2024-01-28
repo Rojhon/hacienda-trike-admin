@@ -97,7 +97,7 @@ const SignIn = () => {
             <Content className="signin">
               <Row gutter={[24, 0]} justify="space-around">
                 <Col>
-                  <Title className="mb-15">Admin<p>Haciendatrike</p></Title>
+                  <Title className="mb-15">Admin<p>HaciendaTrike</p></Title>
                   <Title className="font-regular text-muted" level={5}>
                     Enter your email and password to sign in
                   </Title>
