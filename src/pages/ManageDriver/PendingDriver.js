@@ -221,6 +221,7 @@ const PendingDriver = ({ data, setData, isLoading }) => {
                 <h6>Email: {driverData?.email}</h6>
                 <h6>Contact: {driverData?.contact}</h6>
                 <h6>Gender: {driverData?.gender}</h6>
+                <h6>Plate Number: {driverData?.plate_number}</h6>
 
                 <Row gutter={[16, 16]} justify="center">
                     <Col span={8}>
