@@ -9,6 +9,7 @@
 =========================================================
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+import React, { useState } from "react";
 import {
     Row,
     Col,
@@ -19,16 +20,25 @@ import {
     Typography,
     Space,
     Popconfirm,
-    message
+    Image,
+    message,
+    Modal
 } from "antd";
 import { convertDate, convertDate2 } from "../../utils";
 import haciendaTrikeDriver from "../../assets/images/HaciendaTrikeDriver.png"
-import { deleteAccount } from "../../api/AccountController";
+import { deleteAccount, updateDriverStatus } from "../../api/AccountController";
+import axios from "axios";
 
 const { Title } = Typography;
 
 const AcceptedDriver = ({ data, setData, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
+
+    const [driverData, setDriverData] = useState({})
+    const [approveLoading, setApproveLoading] = useState(false);
+    const [rejectLoading, setRejectLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+
 
     // table code start
     const columns = [
@@ -118,34 +128,25 @@ const AcceptedDriver = ({ data, setData, isLoading }) => {
                 </>
             ),
         },
-        // {
-        //     title: 'Actions',
-        //     dataIndex: 'actions',
-        //     key: 'actions',
-        //     render: (_, record) => (
-        //         <Space>
-        //             {/* Update Action */}
-        //             {/* <Button type="primary" onClick={() => handleUpdate(record?.username)}>
-        //                 Update
-        //             </Button> */}
-
-        //             {/* Delete Action */}
-        //             <Popconfirm
-        //                 title="Are you sure to delete this record?"
-        //                 onConfirm={() => handleDelete(record?.username)}
-        //                 okText="Yes"
-        //                 cancelText="No"
-        //             >
-        //                 <Button type="danger">Delete</Button>
-        //             </Popconfirm>
-        //         </Space>
-        //     ),
-        // },
+        {
+            title: 'Actions',
+            dataIndex: 'actions',
+            key: 'actions',
+            render: (_, record) => (
+                <Space>
+                    {/* Update Action */}
+                    <Button type="primary" onClick={() => viewDriver(record)}>
+                        View
+                    </Button>
+                </Space>
+            ),
+        },
     ];
 
-    const handleUpdate = (record) => {
+    const viewDriver = (record) => {
         // Implement your update logic here
-        message.success(`Updating record with id ${record}`);
+        setOpen(true);
+        setDriverData(record)
     };
 
     const handleDelete = async (record) => {
@@ -160,8 +161,96 @@ const AcceptedDriver = ({ data, setData, isLoading }) => {
     };
 
 
+    // Modal
+    const handleCancel = () => {
+        setOpen(false);
+    };
+
+    const rejectDriver = async () => {
+        setRejectLoading(true)
+        try {
+            const response = await updateDriverStatus(driverData?.username, "Pending")
+            setRejectLoading(false)
+            setOpen(false)
+
+            message.loading("Loading...", 0)
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+        } catch (error) {
+            setRejectLoading(false)
+            setOpen(false)
+        }
+    }
+
+    const approveDriver = async () => {
+        setApproveLoading(true)
+        try {
+            const response = await updateDriverStatus(driverData?.username, "Accepted")
+            setApproveLoading(false)
+            setOpen(false)
+
+            message.loading("Loading...", 0)
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+
+            driverData.status = 'Approved'
+            const responseEmail = await axios.post("https://online-passenger-scheduling-system.netlify.app/api/accounts/send-hacienda-trike", driverData)
+        } catch (error) {
+            setApproveLoading(false)
+            setOpen(false)
+        }
+    }
+
     return (
         <>
+            <Modal
+                visible={open}
+                width={1000}
+                title={`${driverData?.full_name} (Approved)`}
+                onCancel={handleCancel}
+                footer={[
+                    <Button
+                        key="reject"
+                        type="primary"
+                        loading={rejectLoading}
+                        onClick={rejectDriver}
+                    >
+                        Make it Pending
+                    </Button>,
+                    // <Button
+                    //     key="approve"
+                    //     type="primary"
+                    //     loading={approveLoading}
+                    //     onClick={approveDriver}
+                    // >
+                    //     Approve
+                    // </Button>,
+                ]}
+            >
+                <h6>Username: {driverData?.username}</h6>
+                <h6>Email: {driverData?.email}</h6>
+                <h6>Contact: {driverData?.contact}</h6>
+                <h6>Gender: {driverData?.gender}</h6>
+                <h6>Plate Number: {driverData?.plate_number}</h6>
+
+                <Row gutter={[16, 16]} justify="center">
+                    <Col span={8}>
+                        <h2>Selfie</h2>
+                        <Image src={driverData?.selfie_uri} width={"100%"} />
+                    </Col>
+                    <Col span={8}>
+                        <h2>Driver License</h2>
+                        <Image src={driverData?.license_uri} width={"100%"} />
+                    </Col>
+                    <Col span={8}>
+                        <h2>Franchise</h2>
+                        <Image src={driverData?.franchise_uri} width={"100%"} />
+                    </Col>
+                </Row>
+            </Modal>
+
             <div className="tabled">
                 <Row gutter={[24, 0]}>
                     <Col xs="24" xl={24}>

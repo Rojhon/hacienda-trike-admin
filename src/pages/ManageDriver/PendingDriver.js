@@ -173,9 +173,13 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             setRejectLoading(false)
             setOpen(false)
 
+            message.loading("Loading...", 0)
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+
             driverData.status = 'Rejected'
             const responseEmail = await axios.post("https://online-passenger-scheduling-system.netlify.app/api/accounts/send-hacienda-trike", driverData)
-            window.location.reload()
         } catch (error) {
             setRejectLoading(false)
             setOpen(false)
@@ -189,9 +193,13 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             setApproveLoading(false)
             setOpen(false)
 
+            message.loading("Loading...", 0)
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
+
             driverData.status = 'Approved'
             const responseEmail = await axios.post("https://online-passenger-scheduling-system.netlify.app/api/accounts/send-hacienda-trike", driverData)
-            window.location.reload()
         } catch (error) {
             setApproveLoading(false)
             setOpen(false)
