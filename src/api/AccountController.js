@@ -66,10 +66,22 @@ export const updateAccount = async (values) => {
 
 export const updateDriverStatus = async (driverUsername, status) => {
     try {
-        await update(ref(db, 'drivers/' + driverUsername), {
-            status: status,
-            updated_at: serverTimestamp(),
-        });
+        // Need to recode. Tinamad ka ng ibahin yung driver... Pero dapat rejected to!
+        if (status == "Rejected") {
+            await update(ref(db, 'drivers/' + driverUsername), {
+                franchise_uri: null,
+                license_uri: null,
+                plate_number: null,
+                selfie_uri: null,
+                status: "Pending"
+            });
+        } else {
+             // Tama nato kahit ito lang
+            await update(ref(db, 'drivers/' + driverUsername), {
+                status: status,
+                updated_at: serverTimestamp(),
+            });
+        }
 
         return {
             data: "Success!",
@@ -188,9 +200,18 @@ export const getAccountDrivers = async (status) => {
         var data = []
 
         for (var i = 0; i < driversData.length; i++) {
-            if (driversData[i].status == status) {
+            if (status == "Rejected" && !driversData[i].plate_number) {
                 data.push(driversData[i])
+                // Need to recode. Tinamad kang baguhin yung driver.. kaya magkasama tuloy yung pending at driver
+            } else {
+                if (driversData[i].status == status && driversData[i].plate_number) {
+                    data.push(driversData[i])
+                }
             }
+            // Tama nato kahit ito lang
+            // if (driversData[i].status == status) {
+            //     data.push(driversData[i])
+            // }
         }
 
         return {
