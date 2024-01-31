@@ -76,7 +76,7 @@ export const updateDriverStatus = async (driverUsername, status) => {
                 status: "Pending"
             });
         } else {
-             // Tama nato kahit ito lang
+            // Tama nato kahit ito lang
             await update(ref(db, 'drivers/' + driverUsername), {
                 status: status,
                 updated_at: serverTimestamp(),

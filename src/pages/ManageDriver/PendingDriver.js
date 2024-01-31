@@ -27,6 +27,7 @@ import {
 import { convertDate, convertDate2 } from "../../utils";
 import haciendaTrikeDriver from "../../assets/images/HaciendaTrikeDriver.png"
 import { deleteAccount, updateDriverStatus } from "../../api/AccountController";
+import axios from "axios";
 
 const { Title } = Typography;
 
@@ -171,6 +172,9 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             const response = await updateDriverStatus(driverData?.username, "Rejected")
             setRejectLoading(false)
             setOpen(false)
+
+            driverData.status = 'Rejected'
+            const responseEmail = await axios.post("https://online-passenger-scheduling-system.netlify.app/api/accounts/send-hacienda-trike", driverData)
             window.location.reload()
         } catch (error) {
             setRejectLoading(false)
@@ -184,6 +188,9 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             const response = await updateDriverStatus(driverData?.username, "Accepted")
             setApproveLoading(false)
             setOpen(false)
+
+            driverData.status = 'Approved'
+            const responseEmail = await axios.post("https://online-passenger-scheduling-system.netlify.app/api/accounts/send-hacienda-trike", driverData)
             window.location.reload()
         } catch (error) {
             setApproveLoading(false)
