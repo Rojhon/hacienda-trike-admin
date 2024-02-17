@@ -20,6 +20,7 @@ import {
     Typography,
     Space,
     Popconfirm,
+    Skeleton,
     Image,
     message,
     Modal
@@ -35,10 +36,15 @@ const PendingDriver = ({ data, setData, isLoading }) => {
     const onChange = (e) => console.log(`radio checked:${e.target.value}`);
 
     const [driverData, setDriverData] = useState({})
+    const [imgLoading, setImgLoading] = useState(null)
+
     const [approveLoading, setApproveLoading] = useState(false);
     const [rejectLoading, setRejectLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
+    const [selfieLoading, setSelfieLoading] = useState(true);
+    const [licenseLoading, setLicenseLoading] = useState(true);
+    const [franchiseLoading, setFranchiseLoading] = useState(true);
 
     // table code start
     const columns = [
@@ -147,6 +153,12 @@ const PendingDriver = ({ data, setData, isLoading }) => {
         // Implement your update logic here
         setOpen(true);
         setDriverData(record)
+
+        setImgLoading(setTimeout(() => {
+            setSelfieLoading(false)
+            setLicenseLoading(false)
+            setFranchiseLoading(false)
+        }, 2000))
     };
 
     const handleDelete = async (record) => {
@@ -163,7 +175,12 @@ const PendingDriver = ({ data, setData, isLoading }) => {
 
     // Modal
     const handleCancel = () => {
+        clearTimeout(imgLoading)
         setOpen(false);
+        setDriverData({})
+        setSelfieLoading(true)
+        setLicenseLoading(true)
+        setFranchiseLoading(true)
     };
 
     const rejectDriver = async () => {
@@ -241,15 +258,51 @@ const PendingDriver = ({ data, setData, isLoading }) => {
                 <Row gutter={[16, 16]} justify="center">
                     <Col span={8}>
                         <h2>Selfie</h2>
-                        <Image src={driverData?.selfie_uri} width={"100%"} />
+                        <Image
+                            src={driverData?.selfie_uri}
+                            width={"100%"}
+                            hidden
+                            onLoad={() => setSelfieLoading(false)}
+                        />
+                        {
+                            selfieLoading ? <Skeleton /> :
+                                <Image
+                                    src={driverData?.selfie_uri}
+                                    width={"100%"}
+                                />
+                        }
                     </Col>
                     <Col span={8}>
                         <h2>Driver License</h2>
-                        <Image src={driverData?.license_uri} width={"100%"} />
+                        <Image
+                            src={driverData?.license_uri}
+                            width={"100%"}
+                            hidden
+                            onLoad={() => setLicenseLoading(false)}
+                        />
+                        {
+                            licenseLoading ? <Skeleton /> :
+                                <Image
+                                    src={driverData?.license_uri}
+                                    width={"100%"}
+                                />
+                        }
                     </Col>
                     <Col span={8}>
                         <h2>Franchise</h2>
-                        <Image src={driverData?.franchise_uri} width={"100%"} />
+                        <Image
+                            src={driverData?.franchise_uri}
+                            width={"100%"}
+                            hidden
+                            onLoad={() => setFranchiseLoading(false)}
+                        />
+                        {
+                            franchiseLoading ? <Skeleton /> :
+                                <Image
+                                    src={driverData?.franchise_uri}
+                                    width={"100%"}
+                                />
+                        }
                     </Col>
                 </Row>
             </Modal>
