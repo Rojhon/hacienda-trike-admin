@@ -196,7 +196,7 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             }, 2000)
 
             driverData.status = 'Rejected'
-            const responseEmail = await axios.post("https://online-passenger-scheduling-system.netlify.app/api/accounts/send-hacienda-trike", driverData)
+            const responseEmail = await axios.post("https://hacienda-trike-backend.onrender.com/api/accounts/send-hacienda-trike", driverData)
         } catch (error) {
             setRejectLoading(false)
             setOpen(false)
@@ -216,7 +216,7 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             }, 2000)
 
             driverData.status = 'Approved'
-            const responseEmail = await axios.post("https://online-passenger-scheduling-system.netlify.app/api/accounts/send-hacienda-trike", driverData)
+            const responseEmail = await axios.post("https://hacienda-trike-backend.onrender.com/api/accounts/send-hacienda-trike", driverData)
         } catch (error) {
             setApproveLoading(false)
             setOpen(false)

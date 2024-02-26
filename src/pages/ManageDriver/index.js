@@ -14,6 +14,7 @@ import { getAccountDrivers } from "../../api/AccountController";
 import PendingDriver from "./PendingDriver";
 import RejectedDriver from "./RejectedDriver";
 import AcceptedDriver from "./AcceptedDriver";
+import axios from "axios";
 
 const ManageDriver = () => {
 
@@ -23,11 +24,29 @@ const ManageDriver = () => {
     const [rejectedDrivers, setRejectedDrivers] = useState([])
     const [acceptedDrivers, setAcceptedDrivers] = useState([])
 
+    const [running, setRunning] = useState(false)
+
     useEffect(() => {
-        handleGetPendingDriver()
-        handleGetRejectedDriver()
-        handleGetAcceptedDriver()
+        if (running) {
+            handleGetPendingDriver()
+            handleGetRejectedDriver()
+            handleGetAcceptedDriver()
+        }
+    }, [running])
+
+    useEffect(() => {
+        validateBackendIfRunning()
     }, [])
+
+    const validateBackendIfRunning = async () => {
+        try {
+            const response = await axios.get("https://hacienda-trike-backend.onrender.com/api/accounts/testing")
+            console.log(response?.data)
+            setRunning(true)
+        } catch (error) {
+
+        }
+    }
 
     const handleGetPendingDriver = async () => {
         try {
