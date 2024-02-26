@@ -191,12 +191,18 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             setOpen(false)
 
             message.loading("Loading...", 0)
-            setTimeout(() => {
-                window.location.reload()
-            }, 2000)
 
             driverData.status = 'Rejected'
             const responseEmail = await axios.post("https://hacienda-trike-backend.onrender.com/api/accounts/send-hacienda-trike", driverData)
+
+            if (responseEmail?.status == 200) {
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
+            } else {
+                message.error("Server Error!")
+            }
+
         } catch (error) {
             setRejectLoading(false)
             setOpen(false)
@@ -211,12 +217,18 @@ const PendingDriver = ({ data, setData, isLoading }) => {
             setOpen(false)
 
             message.loading("Loading...", 0)
-            setTimeout(() => {
-                window.location.reload()
-            }, 2000)
 
             driverData.status = 'Approved'
             const responseEmail = await axios.post("https://hacienda-trike-backend.onrender.com/api/accounts/send-hacienda-trike", driverData)
+
+            if (responseEmail?.status == 200) {
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
+            } else {
+                message.error("Server Error!")
+            }
+
         } catch (error) {
             setApproveLoading(false)
             setOpen(false)
